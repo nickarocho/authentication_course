@@ -18,6 +18,12 @@ export default new Vuex.Store({
       Axios.defaults.headers.common['Authorization'] = `Bearer ${
         userData.token
       }`
+    },
+    CLEAR_USER_DATA () {
+      // clear local storage
+      localStorage.removeItem('user')
+      // force a refresh to clear out the user state and Axios header
+      location.reload()
     }
   },
   actions: {
@@ -34,6 +40,9 @@ export default new Vuex.Store({
           commit('SET_USER_DATA', data)
         }
       )
+    },
+    logout ({ commit }) {
+      commit('CLEAR_USER_DATA')
     }
   },
   getters: {
